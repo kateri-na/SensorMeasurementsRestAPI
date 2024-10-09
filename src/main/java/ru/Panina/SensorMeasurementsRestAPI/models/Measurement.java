@@ -4,9 +4,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "measurement")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

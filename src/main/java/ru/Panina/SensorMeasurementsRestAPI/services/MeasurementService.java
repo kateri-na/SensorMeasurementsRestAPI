@@ -1,5 +1,6 @@
 package ru.Panina.SensorMeasurementsRestAPI.services;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,13 +11,10 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
+@AllArgsConstructor
 public class MeasurementService {
-    public final MeasurementRepository measurementRepository;
-
     @Autowired
-    public MeasurementService(MeasurementRepository measurementRepository) {
-        this.measurementRepository = measurementRepository;
-    }
+    public final MeasurementRepository measurementRepository;
 
     @Transactional
     public void save(Measurement measurement){

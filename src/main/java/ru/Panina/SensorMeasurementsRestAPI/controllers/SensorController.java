@@ -7,10 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.Panina.SensorMeasurementsRestAPI.dto.SensorDTO;
 import ru.Panina.SensorMeasurementsRestAPI.models.Sensor;
 import ru.Panina.SensorMeasurementsRestAPI.services.SensorService;
+import ru.Panina.SensorMeasurementsRestAPI.util.SensorDTOValidator;
 import ru.Panina.SensorMeasurementsRestAPI.util.SensorNotCreatedException;
 import ru.Panina.SensorMeasurementsRestAPI.util.ErrorResponse;
 
@@ -35,7 +37,7 @@ public class SensorController {
             }
             throw new SensorNotCreatedException(errorMessage.toString());
         }
-        sensorService.save(convertToSensor(sensorDTO));
+        sensorService.save(sensorService.convertToSensor(sensorDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
@@ -46,9 +48,8 @@ public class SensorController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST); //404 status
     }
 
-    private Sensor convertToSensor(SensorDTO sensorDTO){
-        Sensor sensor = new Sensor();
-        sensor.setName(sensorDTO.getName());
-        return sensor;
+    @InitBinder
+    public void setup(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(new SensorDTOValidator(sensorService));
     }
 }

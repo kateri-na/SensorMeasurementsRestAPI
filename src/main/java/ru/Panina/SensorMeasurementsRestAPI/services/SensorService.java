@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.Panina.SensorMeasurementsRestAPI.dto.SensorDTO;
 import ru.Panina.SensorMeasurementsRestAPI.models.Sensor;
 import ru.Panina.SensorMeasurementsRestAPI.repositories.SensorRepository;
 
@@ -22,5 +23,11 @@ public class SensorService {
 
     public Sensor findSensor(String name){
         return sensorRepository.findByName(name);
+    }
+
+    public Sensor convertToSensor(SensorDTO sensorDTO){
+        Sensor sensor = new Sensor();
+        sensor.setName(sensorDTO.getName());
+        return sensor;
     }
 }

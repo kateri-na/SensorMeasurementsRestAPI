@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.Panina.SensorMeasurementsRestAPI.dto.MeasurementDTO;
 import ru.Panina.SensorMeasurementsRestAPI.models.Measurement;
+import ru.Panina.SensorMeasurementsRestAPI.models.Sensor;
 import ru.Panina.SensorMeasurementsRestAPI.services.MeasurementService;
 import ru.Panina.SensorMeasurementsRestAPI.services.SensorService;
 import ru.Panina.SensorMeasurementsRestAPI.util.ErrorResponse;
@@ -49,8 +50,8 @@ public class MeasurementController {
     }
 
     @GetMapping("/rainyDaysCount")
-    public List<Measurement> getRainyMeasurements(){
-        return measurementService.findRaining();
+    public int getRainyMeasurements(){
+        return measurementService.findRaining().size();
     }
 
     @ExceptionHandler
@@ -63,8 +64,9 @@ public class MeasurementController {
         Measurement measurement = new Measurement();
         measurement.setValue(measurementDTO.getValue());
         measurement.setRaining(measurementDTO.isRaining());
-        if(sensorService.findSensor(measurementDTO.getSensor().getName())!=null)
-            measurement.setSensor(measurementDTO.getSensor());
+        Sensor findingSensor = sensorService.findSensor(measurementDTO.getSensorDTO().getName());
+        if(findingSensor != null)
+            measurement.setSensor(findingSensor);
         else
             throw new MeasurementNotCreatedException("Сенсор с таким именем не зарегистрирован в системе");
         return measurement;

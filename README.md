@@ -4,6 +4,6 @@
   ![image](https://github.com/user-attachments/assets/fd33f6e4-4d5f-4d0d-84a9-06157e15dea9)
 2) Добавление измерения от сенсора: POST /measurements/add
   Значение "value" должно быть не пустым и находиться в диапазоне от -100 до 100. Значение "raining" должно быть не пустым. Происходит валидация, что сенсора с таким названием еще нет в БД. Если сенсор с таким названием есть в БД - возвращается сообщение с ошибкой
-  ![image](https://github.com/user-attachments/assets/3ab1617c-d072-4411-b76d-d69737bffa7f)
+  ![image](https://github.com/user-attachments/assets/6bc0a6d8-6de4-450f-a3ca-4a893822aecd)
 3) Получение всех измерений: GET /measurements
 4) Получение количества дождливых дней: GET /measurements/rainyDaysCount

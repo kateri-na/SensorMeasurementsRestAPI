@@ -1,8 +1,5 @@
 package ru.Panina.SensorMeasurementsRestAPI.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.Panina.SensorMeasurementsRestAPI.models.Sensor;
 
 @Getter
 @Setter
@@ -26,7 +22,6 @@ public class MeasurementDTO {
     private boolean raining;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "sensor_id", referencedColumnName = "id")
-    private Sensor sensor;
+    private SensorDTO sensorDTO;
+
 }
